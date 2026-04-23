@@ -1,5 +1,5 @@
 # High-Performance ECS Movement System
-### A Study in Cache Locality and SIMD Vectorization
+### A little side project in learning about Cache Locality and SIMD vectorization
 
 ## Project Overview
 This project is a high-performance implementation of a 2D Movement System, designed to explore the limits of data-oriented design and hardware-aware C++. The goal was to optimize a standard "scalar" movement loop using **Structure of Arrays (SoA)** and **AVX2 SIMD intrinsics**.
