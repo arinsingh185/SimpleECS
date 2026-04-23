@@ -1,4 +1,4 @@
-# High-Performance ECS Movement System
+# SimpleECS Movement System
 ### A little side project in learning about Cache Locality and SIMD vectorization
 
 ## Project Overview
