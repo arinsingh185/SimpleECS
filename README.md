@@ -26,14 +26,6 @@ The core `MovementSystem` was refactored using Intel/AMD intrinsics (`immintrin.
 
 *\*Estimated based on 100k baseline.*
 
-## Engineering Insights
-
-### The Memory Wall
-During testing, I observed that the speedup factor decreased as the entity count reached 1,000,000. While the 100k test showed a near-theoretical 7.5x improvement, the 1M test was limited by memory bandwidth. This transition highlights the **"Memory Wall"**—where the CPU's execution units become faster than the RAM's ability to feed them data.
-
-### Hardware-Aware Design
-The transition from a stack-allocated system to an aligned heap-allocated system was necessary to prevent access violations and stack overflows at scale. This project demonstrates the importance of understanding the physical constraints of the target architecture when designing high-frequency systems.
-
 ---
 
 ## How to Build
