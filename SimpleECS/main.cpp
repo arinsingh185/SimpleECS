@@ -1,5 +1,6 @@
 #include<iostream>
 #include <chrono>
+#include <immintrin.h>
 
 struct Positon {
 	float x, y;
@@ -43,8 +44,31 @@ void MovementSystem(ArchetypeChunk& chunk) {
 	}
 }
 
+
+
+void MovementSystemSIMD(ArchetypeChunk& chunk) {
+	
+	for (size_t i = 0; i < chunk.entityCount; i += 8) {
+
+	
+		__m256 posX_vec = _mm256_load_ps(&chunk.posX[i]);
+		__m256 velX_vec = _mm256_load_ps(&chunk.velX[i]);
+
+		__m256 resultX = _mm256_add_ps(posX_vec, velX_vec);
+
+		_mm256_store_ps(&chunk.posX[i], resultX);
+
+		__m256 posY_vec = _mm256_load_ps(&chunk.posY[i]);
+		__m256 velY_vec = _mm256_load_ps(&chunk.velY[i]);
+
+		__m256 resultY = _mm256_add_ps(posY_vec, velY_vec);
+
+		_mm256_store_ps(&chunk.posY[i], resultY);
+	}
+}
+
 int main() {
-	const size_t numEntities = 100000;
+	const size_t numEntities = 1000000;
 
 
 	auto myChunk = std::make_unique<ArchetypeChunk>(numEntities);
@@ -54,7 +78,7 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 
 	for (int frame = 0; frame < 1000; ++frame) {
-		MovementSystem(*myChunk);
+		MovementSystemSIMD(*myChunk);
 	}
 
 	auto end = std::chrono::high_resolution_clock::now();
